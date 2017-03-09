@@ -275,5 +275,4 @@ public class HttpUtil {
 
 		public void callback(String response);
 	}
-	
 }

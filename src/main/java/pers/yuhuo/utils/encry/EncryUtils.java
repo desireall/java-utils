@@ -18,10 +18,23 @@ public class EncryUtils {
 	 * MD5
 	 */
 	public static String md5(String str) {
+		return encry(str, "MD5");
+	}
+	
+    /**
+     * hmac(sha256)算法
+     */
+	public static String sha256(String str){
+		return encry(str, "SHA");  //sha 默认使用sha256
+	}
+	
+	
+	
+	private static String encry(String str , String encryName) {
 		MessageDigest messageDigest = null;
 		try {
 			// 创建具有指定算法名称的信息摘要
-			messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest = MessageDigest.getInstance(encryName);
 			messageDigest.reset();
 			messageDigest.update(str.getBytes("UTF-8"));
 		} catch (NoSuchAlgorithmException e) {
@@ -48,7 +61,9 @@ public class EncryUtils {
 	}
 	
 	
-	
-	
+	public static void main(String[] args) {
+		
+		
+	}
 	
 }

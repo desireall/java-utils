@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Properties;
@@ -274,5 +271,12 @@ public class HttpUtil {
 	public static interface HttpCallback {
 
 		public void callback(String response);
+	}
+  
+    public static void main(String[] args) {
+    	String url = "http://106.2.49.117:4019/sauth";
+    	
+    	System.err.println(doGet(url, null, false));
+    	
 	}
 }

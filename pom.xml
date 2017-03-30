@@ -13,11 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.7</java-version>
-        <downloadSources>true</downloadSources>
+		<downloadSources>true</downloadSources>
 	</properties>
-
-
-	<!-- 配置下载 jar包 源码 -->
 
 
 	<dependencies>
@@ -37,6 +34,14 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<!-- 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		 -->
 
 		<dependency>
 			<groupId>junit</groupId>

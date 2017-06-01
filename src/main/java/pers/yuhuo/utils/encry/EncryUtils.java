@@ -15,6 +15,8 @@ import net.sf.json.JSONObject;
  * 加密
  * @author Yu_Huo
  * 
+ * https://1024tools.com/
+ * 
  * 常用的加密算法
  * http://www.iteye.com/topic/1122076
  * 
@@ -63,7 +65,17 @@ public class EncryUtils {
 
 	
 	
-	
+	public static String encodeHmacSHA256(String data, String key){
+		String encry = null;
+		try {
+			encry = encodeHmacSHA256(data.getBytes("UTF-8"), key.getBytes("UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			encry = null;
+		}
+		return encry;
+	}
+
 	
     /**
      * 生成HmacSHA256加密数据

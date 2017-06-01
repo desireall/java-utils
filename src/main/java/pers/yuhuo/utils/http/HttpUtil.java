@@ -58,9 +58,14 @@ public class HttpUtil {
 	 * @param params
 	 *            参数
 	 */
-	public static String doPost(String httpUrl, String params, boolean https) {
+	public static String doPost(String httpUrl , Map<String, String> headerMap, String params, boolean https) {
 		HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost
 		try {
+			if (headerMap != null) {
+				for (String key : headerMap.keySet()) {
+					httpPost.setHeader(key, headerMap.get(key));
+				}
+			}
 			// 设置参数
 			StringEntity stringEntity = new StringEntity(params, "UTF-8");
 			stringEntity.setContentType("application/json");
@@ -120,7 +125,12 @@ public class HttpUtil {
 			// 执行请求
 			response = httpClient.execute(httpGet);
 			entity = response.getEntity();
-			responseContent = EntityUtils.toString(entity, "UTF-8");
+			int code = response.getStatusLine().getStatusCode();
+			if(code != 200){
+				responseContent = null;
+			}else{
+				responseContent = EntityUtils.toString(entity, "UTF-8");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -164,7 +174,12 @@ public class HttpUtil {
 			// 执行请求
 			response = httpClient.execute(httpPost);
 			entity = response.getEntity();
-			responseContent = EntityUtils.toString(entity, "UTF-8");
+			int code = response.getStatusLine().getStatusCode();
+			if(code != 200){
+				responseContent = null;
+			}else{
+				responseContent = EntityUtils.toString(entity, "UTF-8");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -183,4 +198,6 @@ public class HttpUtil {
 		return responseContent;
 	}
 
+	
+	
 }

@@ -3,6 +3,7 @@ package pers.yuhuo.utils.http;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,13 @@ import org.apache.http.conn.util.PublicSuffixMatcherLoader;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.execchain.MainClientExec;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 /**
  * 工具类 CloseableHttpClient 同步访问
@@ -69,6 +75,7 @@ public class HttpUtil {
 			// 设置参数
 			StringEntity stringEntity = new StringEntity(params, "UTF-8");
 			stringEntity.setContentType("application/json");
+//			stringEntity.setContentType("application/x-www-form-urlencoded");
 			httpPost.setEntity(stringEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,6 +83,26 @@ public class HttpUtil {
 		return sendHttpPost(httpPost, https);
 	}
 
+	
+	public static String doPost(String httpUrl , Map<String, String> headerMap, String params, String contentType, boolean https) {
+		HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost
+		try {
+			if (headerMap != null) {
+				for (String key : headerMap.keySet()) {
+					httpPost.setHeader(key, headerMap.get(key));
+				}
+			}
+			// 设置参数
+			StringEntity stringEntity = new StringEntity(params, "UTF-8");
+			stringEntity.setContentType(contentType);
+			httpPost.setEntity(stringEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sendHttpPost(httpPost, https);
+	}
+	
+	
 	/**
 	 * 发送 post请求
 	 * 
@@ -197,7 +224,5 @@ public class HttpUtil {
 		}
 		return responseContent;
 	}
-
-	
 	
 }

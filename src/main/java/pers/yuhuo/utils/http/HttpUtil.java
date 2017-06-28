@@ -202,11 +202,11 @@ public class HttpUtil {
 			response = httpClient.execute(httpPost);
 			entity = response.getEntity();
 			int code = response.getStatusLine().getStatusCode();
-			if(code != 200){
-				responseContent = null;
-			}else{
+//			if(code != 200){
+//				responseContent = null;
+//			}else{
 				responseContent = EntityUtils.toString(entity, "UTF-8");
-			}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

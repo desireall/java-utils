@@ -1,4 +1,4 @@
-package pers.yuhuo.utils.ssh;
+﻿package pers.yuhuo.utils.ssh;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,18 +24,8 @@ public class CommandTest {
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(pro.getErrorStream() , Charset.forName(code)));
 		String line = null;
 
-		boolean error = true;
 		while ((line = stdError.readLine()) != null) {
-			if (error) {
-				System.out.println("ERROR:--------begin-----------");
-			}
-
 			System.err.println(line);
-
-			if (error) {
-				System.out.println("ERROR:---------end----------");
-				error = false;
-			}
 		}
 
 		while ((line = stdInput.readLine()) != null) {

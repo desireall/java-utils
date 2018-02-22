@@ -1,6 +1,7 @@
 package pers.yuhuo.utils.encry;
 
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -41,6 +42,8 @@ public class EncryUtils {
 	
 	
 	
+	
+	
 	private static String encry(String str , String encryName) {
 		MessageDigest messageDigest = null;
 		try {
@@ -68,7 +71,7 @@ public class EncryUtils {
 	public static String encodeHmacSHA256(String data, String key){
 		String encry = null;
 		try {
-			encry = encodeHmacSHA256(data.getBytes("UTF-8"), key.getBytes("UTF-8"));
+			encry = toHexString(encodeHmacSHA256(data.getBytes("UTF-8"), key.getBytes("UTF-8")));
 		} catch (Exception e) {
 			e.printStackTrace();
 			encry = null;
@@ -84,7 +87,7 @@ public class EncryUtils {
      * @return
      * @throws Exception
      */
-    public static String encodeHmacSHA256(byte[] data, byte[] key)
+    public static byte[] encodeHmacSHA256(byte[] data, byte[] key)
             throws Exception {
         // 还原密钥
         SecretKey secretKey = new SecretKeySpec(key, "HmacSHA256");
@@ -95,8 +98,40 @@ public class EncryUtils {
         // 执行消息摘要
         byte[] digest = mac.doFinal(data);
 //        return new HexBinaryAdapter().marshal(digest);// 转为十六进制的字符串 大写
-        return toHexString(digest);
+//        return toHexString(digest);
+        return digest;
     }
+    
+    
+	
+	/**
+	 * HmacSHA1
+	 * @param key
+	 * @param data
+	 * @return
+	 */
+	public static byte[] encodeHmacSHA1(byte[] data , byte[] key) 
+	{
+	      try {
+	          // 还原密钥
+	          SecretKeySpec signingKey = new SecretKeySpec(key, "HmacSHA1");
+	          // 实例化Mac
+	          Mac mac = Mac.getInstance(signingKey.getAlgorithm());
+	          // 初始化mac
+	          mac.init(signingKey);
+	          // 执行消息摘要
+	          byte[] digest = mac.doFinal(data);
+//	          return new HexBinaryAdapter().marshal(digest);// 转为十六进制的字符串 大写
+//	          return toHexString(digest);
+	          return digest;
+	      } catch (NoSuchAlgorithmException e) {
+	           e.printStackTrace();
+	      } catch (InvalidKeyException e) {
+	           e.printStackTrace();
+	      }
+	     return null;
+	 }
+    
     
     
     private static String  toHexString(byte[] bytes) {
